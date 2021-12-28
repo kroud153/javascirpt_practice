@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>끝말잇기</title>
+</head>
+
+<body>
+  <div><span id="order">1</span>번째 참가자</div>
+  <div>제시어 : <span id="word"></span></div>
+  <input onkeyup="enterkey();" type="text">
+  <button>입력</button>
+  <script>
+    //여기 다가 자바 스크립트 코드를 작성
+    //참가 인원 입력
+    const number = parseInt(prompt('몇 명이 참가하나요?'), 10);
+    if (number) {//입력 확인 누르면 작동
+
+      // 아래 방법은 안됨.
+      // num = number
+      // while(1){
+
+      // if(!num){//값이 입력받았는지
+      //   //continue;
+      //   break;
+      // }else{
+      //   //break;
+      //   continue;
+      // } 
+      // num = parseInt(prompt('new 몇 명이 참가하나요?'), 10);
+      // }
+
+      //확인창
+      console.log(number)
+      const yesOrNo = confirm('맞나요?');
+
+
+      //태그 선택
+      const $button = document.querySelector('button');
+      const $input = document.querySelector('input');
+      const $word = document.querySelector('#word');
+      console.log($word);
+      const $order = document.querySelector('#order');
+
+
+      //변수선언
+      let word;//제시어
+      let newWord;//새로 입력된 단어
+
+
+      //리스너 추가
+      const onClickButton = () => {//버튼을 누르면
+        $input.focus();//커서 깜빡임
+
+      //if(!word && $input.value.length === 3 || word[word.length - 1] === newWord[0]) { //$input.value로 쓸수도 있긴 함
+      //if ((!word && newWord.length === 3) || (word[word.length - 1] === newWord[0] && newWord.length === 3)) {//제시어가 비었는지 확인하고
+       if (newWord.length === 3 && (!word || word[word.length - 1] === newWord[0])) {
+       //if (!word || (word[word.length - 1] === newWord[0] && newWord.length === 3)) { //<-- 첫 사람이 3글자 안걸림
+          //비었다!
+          word = newWord;
+          $word.textContent = word;//입력한 단어가 제시어가 됨. ==> 화면에 제시어 표시됨.
+          $input.value = '';//입력창을 비워줌. 약간의 센스
+          $input.focus();//커서 깜빡임
+          const order = Number($order.textContent);//현재 순서
+          if (order + 1 > number) {
+            $order.textContent = 1; //자동으로 형변환 됨.
+          } else {
+            $order.textContent = order + 1;
+          }
+        } else {
+          //비어 있지 않다! ==> 첫 사람이 아니다.
+          //올바른가?
+          // if (word[word.length - 1] === newWord[0]) {//제시어 마지막 글자 와 새글자의 첫번째 글자를 비교
+          //   word = newWord;
+          //   $word.textContent = word;//입력한 단어가 제시어가 됨. ==> 화면에 제시어 표시됨.
+          //   $input.value = '';//입력창을 비워줌. 약간의 센스
+          //   $input.focus();//커서 깜빡임
+          //   const order = Number($order.textContent);//현재 순서
+          //   if (order + 1 > number) {
+          //     $order.textContent = 1; //자동으로 형변환 됨.
+          //   } else {
+          //     $order.textContent = order + 1;
+          //   }
+          // } else {
+          //올바르지 않은 경우
+          alert("올바르지 않은 단어입니다.")
+          //}
+        }
+      };
+
+      const onInput = (event) => {//입력을 받았다면...?
+        newWord = event.target.value;
+        console.log(newWord);
+      };
+
+      $input.addEventListener('input', onInput);
+      $button.addEventListener('click', onClickButton);
+    
+    //엔터키 누르면 입력 눌러지는 함수
+    function enterkey() {
+      if (window.event.keyCode == 13) {
+
+        // 엔터키가 눌렸을 때 실행할 내용
+        onClickButton();
+      }
+    }
+
+    }else{
+      alert('인원 입력을 취소하셨습니다.');
+    }
+  </script>
+</body>
+
+</html>

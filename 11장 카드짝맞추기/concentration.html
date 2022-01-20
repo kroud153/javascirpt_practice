@@ -53,22 +53,29 @@
 <body>
   <div id="wrapper"></div>
   <div>
+    <p> 아래는 무시하세요 </p>
     <form id ="colorinput">
-      <input id = "input", placeholder="색 개수">
-      <button id ="inputbutton">제출</button>
+      <input type="number" id = "input", placeholder="색 개수">
+      <!-- <button id ="inputbutton">제출</button> -->
     </form>
   </div>
   <script>
     const $wrapper = document.querySelector('#wrapper');
     const $input = document.querySelector('#colorinput');
-    //const total = parseInt(prompt('카드 개수를 짝수로 입력하세요(최대 20).'));
-    const total = document.getElementById('input').value;
+    const total = parseInt(prompt('카드 개수를 짝수로 입력하세요(최대 20).'));
+    //const total = document.getElementById('input').value;
+    //let total = 0;
     // $input.addEventListener("submit",(event) => {
-    //   console.log(event);
-    //   total = event.target['input'].value;
-    //   return;
+    //   console.log("input",parseInt(event.target['input'].value));
+    //   //const total1 = parseInt(event.target['input'].value);
+    //   total = parseInt(event.target['input'].value);
+    //   //total = total1;
+    //   //console.log("re",total1,total);
+    //   //startGame();
     // });
-    console.log(total);
+    //total = parseInt(total);
+    console.log(typeof(total),total);
+    
     const colors = ['red', 'orange', 'yellow', 'green', 'white', 'pink','cyan','black','glay','pulple'];
     let color2 = colors.slice(0,total / 2)
     let colorCopy = color2.concat(color2);
@@ -177,6 +184,7 @@
       startGame();
     }
     startGame();
+  //});
   </script>
 </body>
 
